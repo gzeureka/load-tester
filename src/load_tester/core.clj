@@ -32,9 +32,7 @@
   )
 
 (defn percentile "计算百分位" [coll p]
-  (let [sorted-coll (sort coll)]
-    (nth sorted-coll (int (/ (* (count coll) p) 100)))
-    )
+  (nth (sort coll) (int (/ (* (count coll) p) 100)))
   )
 
 (defn -main [arg1 arg2 & args]
