@@ -36,7 +36,9 @@
   )
 
 (defn -main [arg1 arg2 & args]
-  (let [concurrency (Integer/valueOf arg1)
+  (let [;; 并线程数
+        concurrency (Integer/valueOf arg1)
+        ;; 每个线程请求数
         times (Integer/valueOf arg2)
         url "https://www.baidu.com"
         results (->> (repeatedly concurrency #(<!! (thread (test-url url times))))
