@@ -7,7 +7,7 @@
   )
 
 (defmacro time
-  "Evaluates expr and returns the time (milliseconds) it took and the value of expr."
+  "对表达式求值并计算执行时间，返回执行时间（毫秒为单位）及表达式的值"
   [expr]
   `(let [start# (. System (nanoTime))
          ret# ~expr]
