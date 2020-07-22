@@ -35,11 +35,13 @@
   (nth (sort coll) (int (/ (* (count coll) p) 100)))
   )
 
-(defn -main [arg1 arg2 & args]
+(defn -main [arg1 arg2 arg3 & args]
   (let [;; 并线程数
         concurrency (Integer/valueOf arg1)
         ;; 每个线程请求数
         times (Integer/valueOf arg2)
+        ;; 百分位
+        p (Integer/valueOf arg3)
         url "https://www.baidu.com"
         results (->> (repeatedly concurrency #(<!! (thread (test-url url times))))
                      flatten
@@ -49,6 +51,6 @@
         average-time (/ (apply + results) (* concurrency times))
         ]
     (println (format "average: %sms min: %sms max: %sms" average-time (first sorted-results) (last sorted-results)))
-    (println (format "95th percentile: %sms" (percentile results 95)))
+    (println (format "%dth percentile: %sms" p (percentile results p)))
     )
   )
